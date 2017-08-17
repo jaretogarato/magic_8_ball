@@ -24,6 +24,8 @@ require 'colorize'
   "Very doubtful",
   "No"
 ]
+@answers_master = @answers.clone
+# puts @answers_master
 
 def say_hi
   (1..4).each do |i|
@@ -55,15 +57,33 @@ def get_new_answer
   new_answer = gets
   new_answer = new_answer.strip
   if @answers.include? new_answer
-    puts 'That answer already exists.'
+    puts 'That answer already exists. Returning to normal operation.'
+    puts ''
   else
     @answers << new_answer
     puts 'Your new answer has been added.'
-    # puts ''
+    puts ''
     # (0..@answers.length).each do |i|
     #   puts @answers[i]
     # end
   end
+end
+
+def reset_answers
+  @answers = @answers_master.clone
+  puts 'Answers have been reset to default.'
+  puts ''
+  # (0..@answers.length).each do |i|
+  #   puts @answers[i]
+  # end
+end
+
+def print_answers
+  puts 'Current Magic 8-Ball answers:'
+  (0..@answers.length).each do |i|
+    puts @answers[i]
+  end
+  puts ''
 end
 
 say_hi
@@ -75,6 +95,10 @@ while true
     exit
   elsif question == 'add'
     get_new_answer
+  elsif question == 'reset'
+    reset_answers
+  elsif question == 'print'
+    print_answers
   else
     give_answer
   end
